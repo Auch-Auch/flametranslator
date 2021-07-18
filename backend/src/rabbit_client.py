@@ -6,7 +6,6 @@ import logging
 
 class PikaPublisher():
     def __init__(self, url:str = "localhost"):
-        self.loop = asyncio.get_event_loop()
         self.url = url
         self.connected= False
         self.conn = pika.BlockingConnection(pika.ConnectionParameters(self.url))

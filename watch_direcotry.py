@@ -10,6 +10,7 @@ from google_trans_new import google_translator
 
 _text = 'test'
 
+
 def on_created(event):
     path = event.src_path
     filename, file_extension = os.path.splitext(path)

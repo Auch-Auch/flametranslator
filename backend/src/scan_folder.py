@@ -10,6 +10,7 @@ import pytesseract
 
 from rabbit_client import PikaPublisher
 from etc.config import TRANSLATE_QUEUE
+from translation_api import translate
 
 
 class FolderWatcher:
@@ -31,7 +32,8 @@ class FolderWatcher:
         _, file_extension = os.path.splitext(path)
         if file_extension in [".jpg", ".png", ".jpeg"]:
             text = str(pytesseract.image_to_string(path, lang="eng"))
-            msg = {"text": text, "translated": ""}
+            translated = translate(text)
+            msg = {"text": text, "translated": translated}
             self.pika.publish(msg, TRANSLATE_QUEUE)
         os.remove(event.src_path)
 
